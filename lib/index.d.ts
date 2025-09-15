@@ -10,20 +10,39 @@ export declare function initSDK(config: QuadronSDKConfig): {
             smartWalletAddress: string;
             isSmartWalletDeployed: boolean;
             revoked: boolean;
-        } | any>;
+        } | null>;
         create: (cognitoSub: string, withSmartWallet: boolean) => Promise<{
             publicAddress: string;
             smartWalletAddress: string;
-        } | any>;
+        } | null>;
         recover: (cognitoSub: string) => Promise<{
             address: string;
             privateKey: string;
             mnemonic: string;
-        } | any>;
+        } | null>;
         smart: (cognitoSub: string) => Promise<{
             publicAddress: string;
             smartWalletAddress: string;
-        } | any>;
+        } | null>;
+        createWalletAndMintSbt: ({ cognitoSub, withSmartWallet, mintSBT, name, description, image, attributes, }: {
+            cognitoSub: string;
+            withSmartWallet: boolean;
+            mintSBT: boolean;
+            name?: string;
+            description?: string;
+            image?: string;
+            attributes?: string[];
+        }) => Promise<{
+            wallet: {
+                publicAddress: string;
+                smartWalletAddress: string;
+            } | null;
+            mintedToken: {
+                tokenId: number;
+                owner: string;
+                metadata: any;
+            } | null;
+        } | null>;
     };
     sbt: {
         mint: (userAddress: string, name?: string, description?: string, image?: string, attributes?: string[]) => Promise<{

@@ -24,18 +24,6 @@ const quad = await initSDK({ API_BASE_URL, API_KEY });
 ### Examples
 
 ```js
-// Get wallet info
-quadron.wallets.get({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/wallet (POST)
-
-// Create new wallet
-quadron.wallets.create({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/wallet/create (POST)
-
-// Recover wallet
-quadron.wallets.recover({ cognitoSub: 'user-sub', recoveryPhrase: '...' }); // Calls: API_BASE_URL/wallet/recover (POST)
-
-// Create smart wallet
-quadron.wallets.smart({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/wallet/smart (POST)
-
 // Create wallet and mint SBT in one call
 quadron.wallets.createWalletAndMintSbt({
   cognitoSub: 'user-sub',
@@ -46,7 +34,19 @@ quadron.wallets.createWalletAndMintSbt({
   image: 'https://example.com/image.png',
   attributes: ['attr1', 'attr2']
 });
-// Calls: API_BASE_URL/wallet/create (POST) and API_BASE_URL/sbt/mint (POST)
+// Calls: API_BASE_URL/wallet/create (POST) & API_BASE_URL/sbt/mint (POST)
+
+// Get wallet info
+quadron.wallets.get({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/wallet (POST)
+
+// Create new wallet
+quadron.wallets.create({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/wallet/create (POST)
+
+// Recover wallet
+quadron.wallets.recover({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/wallet/recover (POST)
+
+// Create smart wallet
+quadron.wallets.smart({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/wallet/smart (POST)
 
 // Check if SBT exists
 quadron.sbt.exists({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/sbt/exists/{userAddress} (GET)

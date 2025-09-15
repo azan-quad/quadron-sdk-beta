@@ -1,1 +1,1 @@
-export declare function getApiClient(): any;
+export declare function getApiClient(): import("axios").AxiosInstance;
