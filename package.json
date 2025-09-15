@@ -1,5 +1,5 @@
 {
-  "name": "@quadron-sdk-beta",
+  "name": "quadron-sdk-beta",
   "version": "0.1.0",
   "description": "Quadron SDK for interacting with backend services",
   "main": "lib/index.js",

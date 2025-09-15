@@ -1,7 +1,7 @@
 # Quadron SDK Function Reference (MVP)
 
 ```js
-import { initSDK } from 'quadron-sdk';
+import { initSDK } from 'quadron-sdk-beta';
 const quad = await initSDK({ API_BASE_URL, API_KEY });
 ```
 
