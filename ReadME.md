@@ -16,6 +16,7 @@ const quad = await initSDK({ API_BASE_URL, API_KEY });
 | exists  | Check if SBT exists        |
 | mint    | Mint SBT                   |
 | fetch   | Fetch SBT metadata         |
+| createWalletAndMintSbt | Create wallet and mint SBT in one call |
 
 **Usage:**
 - Pass `cognitoSub` in the body. No Bearer token or API key needed.
@@ -34,6 +35,18 @@ quadron.wallets.recover({ cognitoSub: 'user-sub', recoveryPhrase: '...' }); // C
 
 // Create smart wallet
 quadron.wallets.smart({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/wallet/smart (POST)
+
+// Create wallet and mint SBT in one call
+quadron.wallets.createWalletAndMintSbt({
+  cognitoSub: 'user-sub',
+  withSmartWallet: true, // or false
+  mintSBT: true, // always true for minting
+  name: 'SBT Name',
+  description: 'SBT Description',
+  image: 'https://example.com/image.png',
+  attributes: ['attr1', 'attr2']
+});
+// Calls: API_BASE_URL/wallet/create (POST) and API_BASE_URL/sbt/mint (POST)
 
 // Check if SBT exists
 quadron.sbt.exists({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/sbt/exists/{userAddress} (GET)
@@ -73,3 +86,16 @@ quadron.sbt.revoke({ cognitoSub: 'user-sub', sbtId: 'sbt-id' }, { apiKey: 'YOUR_
 - Replace `'YOUR_API_KEY'` with your backend’s API key.
 - Frontend functions do not require API key or Bearer token.
 - Backend/admin functions must be protected and never exposed to the frontend.
+
+---
+
+## Error Handling
+
+The SDK throws errors in the following cases:
+
+| Error Message                                      | Reason                                                      |
+|----------------------------------------------------|-------------------------------------------------------------|
+| API_BASE_URL is required to initialize the SDK      | You must provide API_BASE_URL when calling initSDK          |
+| API_BASE_URL is not set. Please initialize the SDK first. | You must call initSDK before using any SDK function         |
+| userAddress is required                            | The userAddress parameter is required for SBT operations    |
+| tokenId is required                                | The tokenId parameter is required for SBT revoke operation  |
