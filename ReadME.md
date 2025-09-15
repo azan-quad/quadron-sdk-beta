@@ -53,7 +53,6 @@ quadron.sbt.fetch({ cognitoSub: 'user-sub' }); // Calls: API_BASE_URL/sbt/metada
 |---------|----------------------------|
 | update  | Update SBT metadata        |
 | revoke  | Revoke SBT                 |
-| admin   | Admin-only functions       |
 
 **Usage:**
 - Must be called from backend. Pass API key (hardcoded for MVP).
@@ -72,5 +71,5 @@ quadron.sbt.revoke({ cognitoSub: 'user-sub', sbtId: 'sbt-id' }, { apiKey: 'YOUR_
 **Note:**
 - Replace `'user-sub'` with the actual Cognito user sub.
 - Replace `'YOUR_API_KEY'` with your backend’s API key.
-- Frontend functions do not require API key or Bearer token in MVP.
+- Frontend functions do not require API key or Bearer token.
 - Backend/admin functions must be protected and never exposed to the frontend.
