@@ -1,0 +1,11 @@
+.env
+node_modules/
+dist/
+*.bak
+*.log
+package-lock.json
+yarn.lock
+lib.map
+/.nyc_output
+/coverage
+settings.json

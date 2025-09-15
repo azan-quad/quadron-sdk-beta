@@ -1,0 +1,35 @@
+{
+  "name": "@quadron-sdk-beta",
+  "version": "0.1.0",
+  "description": "Quadron SDK for interacting with backend services",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "README.md",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "npm run clean && tsc",
+    "clean": "rm -rf lib",
+    "lint": "eslint src --ext .ts",
+    "format": "eslint src --ext .ts --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.6.1",
+    "ethers": "^5.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.57",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

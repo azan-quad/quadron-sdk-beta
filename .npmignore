@@ -1,0 +1,16 @@
+src/
+.nyc_output/
+coverage/
+node_modules/
+test/
+.eslintrc
+.gitignore
+.gitlab-ci.yml
+.mocharc.json
+.npmrc
+.nycrc.json
+register.js
+tsconfig.json
+yarn-error.log
+yarn.lock
+settings.json

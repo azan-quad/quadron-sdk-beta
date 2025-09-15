@@ -1,0 +1,10 @@
+# Ignore artifacts:
+node_modules
+.husky
+ci_cd
+.env.*
+.gitlab-ci.yml
+.prettierrc
+package-lock.json
+package.json
+yarn.lock
