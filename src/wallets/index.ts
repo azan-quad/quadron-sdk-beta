@@ -8,9 +8,14 @@ async function getWallet(cognitoSub: string): Promise<{
   isSmartWalletDeployed: boolean;
   revoked: boolean;
 } | null> {
-  const apiClient = getApiClient();
-  const res = await apiClient.post("/wallet", { cognitoSub });
-  return res.data;
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.post("/wallet", { cognitoSub });
+    return res.data;
+  } catch (error) {
+    console.error("Error in getWallet:", error);
+    return null;
+  }
 }
 
 async function createWallet(
@@ -20,9 +25,14 @@ async function createWallet(
   publicAddress: string;
   smartWalletAddress: string;
 } | null> {
-  const apiClient = getApiClient();
-  const res = await apiClient.post("/wallet/create", { cognitoSub, withSmartWallet });
-  return res.data;
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.post("/wallet/create", { cognitoSub, withSmartWallet });
+    return res.data;
+  } catch (error) {
+    console.error("Error in createWallet:", error);
+    return null;
+  }
 }
 
 async function recoverWallet(cognitoSub: string): Promise<{
@@ -30,18 +40,28 @@ async function recoverWallet(cognitoSub: string): Promise<{
   privateKey: string;
   mnemonic: string;
 } | null> {
-  const apiClient = getApiClient();
-  const res = await apiClient.post(`/wallet/recover`, { cognitoSub });
-  return res.data;
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.post(`/wallet/recover`, { cognitoSub });
+    return res.data;
+  } catch (error) {
+    console.error("Error in recoverWallet:", error);
+    return null;
+  }
 }
 
 async function createSmartWalletForExisting(cognitoSub: string): Promise<{
   publicAddress: string;
   smartWalletAddress: string;
 } | null> {
-  const apiClient = getApiClient();
-  const res = await apiClient.post("/wallet/smart", { cognitoSub });
-  return res.data;
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.post("/wallet/smart", { cognitoSub });
+    return res.data;
+  } catch (error) {
+    console.error("Error in createSmartWalletForExisting:", error);
+    return null;
+  }
 }
 
 async function createWalletAndMintSbt({
@@ -67,12 +87,17 @@ async function createWalletAndMintSbt({
   } | null;
   mintedToken: { tokenId: number; owner: string; metadata: any } | null;
 } | null> {
-  const wallet = await createWallet(cognitoSub, withSmartWallet);
-  let mintedToken;
-  if (mintSBT) {
-    mintedToken = await sbt.mintSbt(wallet!?.publicAddress, name, description, image, attributes);
+  try {
+    const wallet = await createWallet(cognitoSub, withSmartWallet);
+    let mintedToken;
+    if (mintSBT) {
+      mintedToken = await sbt.mintSbt(wallet!?.publicAddress, name, description, image, attributes);
+    }
+    return { wallet, mintedToken };
+  } catch (error) {
+    console.error("Error in createWalletAndMintSbt:", error);
+    return null;
   }
-  return { wallet, mintedToken };
 }
 
 export const wallet = {
