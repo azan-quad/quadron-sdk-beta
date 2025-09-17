@@ -1,7 +1,7 @@
 import { getApiClient } from "../apiClient";
 import { sbt } from "../sbt";
 
-async function getWallet(cognitoSub: string): Promise<{
+async function getWallet({ cognitoSub }: { cognitoSub: string }): Promise<{
   cognitoSub: string;
   publicAddress: string;
   smartWalletAddress: string;
@@ -18,10 +18,13 @@ async function getWallet(cognitoSub: string): Promise<{
   }
 }
 
-async function createWallet(
-  cognitoSub: string,
-  withSmartWallet: boolean,
-): Promise<{
+async function createWallet({
+  cognitoSub,
+  withSmartWallet,
+}: {
+  cognitoSub: string;
+  withSmartWallet: boolean;
+}): Promise<{
   publicAddress: string;
   smartWalletAddress: string;
 } | null> {
@@ -35,7 +38,7 @@ async function createWallet(
   }
 }
 
-async function recoverWallet(cognitoSub: string): Promise<{
+async function recoverWallet({ cognitoSub }: { cognitoSub: string }): Promise<{
   address: string;
   privateKey: string;
   mnemonic: string;
@@ -50,7 +53,7 @@ async function recoverWallet(cognitoSub: string): Promise<{
   }
 }
 
-async function createSmartWalletForExisting(cognitoSub: string): Promise<{
+async function createSmartWalletForExisting(cognitoSub: { cognitoSub: string }): Promise<{
   publicAddress: string;
   smartWalletAddress: string;
 } | null> {
@@ -72,7 +75,7 @@ async function createWalletAndMintSbt({
   description,
   image,
   attributes,
-} : {
+}: {
   cognitoSub: string;
   withSmartWallet: boolean;
   mintSBT: boolean;
@@ -88,10 +91,10 @@ async function createWalletAndMintSbt({
   mintedToken: { tokenId: number; owner: string; metadata: any } | null;
 } | null> {
   try {
-    const wallet = await createWallet(cognitoSub, withSmartWallet);
+    const wallet = await createWallet({ cognitoSub, withSmartWallet });
     let mintedToken;
     if (mintSBT) {
-      mintedToken = await sbt.mintSbt(wallet!?.publicAddress, name, description, image, attributes);
+      mintedToken = await sbt.mintSbt({cognitoSub, name, description, image, attributes});
     }
     return { wallet, mintedToken };
   } catch (error) {

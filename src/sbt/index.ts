@@ -1,16 +1,22 @@
 import { getApiClient } from "../apiClient";
 
-async function mintSbt(
-  userAddress: string,
-  name?: string,
-  description?: string,
-  image?: string,
-  attributes?: string[],
-): Promise<{ tokenId: number; owner: string; metadata: any } | any> {
+async function mintSbt({
+  cognitoSub,
+  name,
+  description,
+  image,
+  attributes,
+}: {
+  cognitoSub: string;
+  name?: string;
+  description?: string;
+  image?: string;
+  attributes?: string[];
+}): Promise<{ tokenId: number; owner: string; metadata: any } | any> {
   try {
-    if (!userAddress) throw new Error("userAddress is required");
+    if (!cognitoSub) throw new Error("cognitoSub is required");
     const apiClient = getApiClient();
-    const res = await apiClient.post("/sbt/mint", { userAddress, name, description, image, attributes });
+    const res = await apiClient.post("/sbt/mint", { cognitoSub, name, description, image, attributes });
     return res.data;
   } catch (error) {
     console.error("Error in mintSbt:", error);
@@ -18,13 +24,13 @@ async function mintSbt(
   }
 }
 
-async function revokeSbt(tokenId: number): Promise<any> {
+async function revokeSbt(cognitoSub: { cognitoSub: string }): Promise<any> {
   try {
-    if (tokenId === undefined || tokenId === null) {
-      throw new Error("tokenId is required");
+    if (cognitoSub === undefined || cognitoSub === null) {
+      throw new Error("cognitoSub is required");
     }
     const apiClient = getApiClient();
-    const res = await apiClient.post("/sbt/revoke", { tokenId });
+    const res = await apiClient.post("/sbt/revoke", { cognitoSub });
     return res.data;
   } catch (error) {
     console.error("Error in revokeSbt:", error);
@@ -32,11 +38,11 @@ async function revokeSbt(tokenId: number): Promise<any> {
   }
 }
 
-async function hasSbt(userAddress: string): Promise<any> {
+async function hasSbt(cognitoSub: { cognitoSub: string }): Promise<any> {
   try {
-    if (!userAddress) throw new Error("userAddress is required");
+    if (!cognitoSub) throw new Error("cognitoSub is required");
     const apiClient = getApiClient();
-    const res = await apiClient.get(`/sbt/exists/${encodeURIComponent(userAddress)}`);
+    const res = await apiClient.get(`/sbt/exists/${cognitoSub}`);
     return res.data;
   } catch (error) {
     console.error("Error in hasSbt:", error);
@@ -44,12 +50,12 @@ async function hasSbt(userAddress: string): Promise<any> {
   }
 }
 
-async function getSbtMetadata(
-  tokenId: number,
-): Promise<{ tokenId: number; name?: string; description?: string; image?: string; attributes?: string[] } | any> {
+async function getSbtMetadata(cognitoSub: {
+  cognitoSub: string;
+}): Promise<{ tokenId: number; name?: string; description?: string; image?: string; attributes?: string[] } | any> {
   try {
     const apiClient = getApiClient();
-    const res = await apiClient.get(`/sbt/metadata/${tokenId}`);
+    const res = await apiClient.get(`/sbt/metadata/${cognitoSub}`);
     return res.data;
   } catch (error) {
     console.error("Error in getSbtMetadata:", error);
@@ -57,13 +63,16 @@ async function getSbtMetadata(
   }
 }
 
-async function updateSbtMetadata(
-  tokenId: number,
-  updates: object,
-): Promise<{ tokenId: number; name?: string; description?: string; image?: string; attributes?: string[] } | any> {
+async function updateSbtMetadata({
+  cognitoSub,
+  updates,
+}: {
+  cognitoSub: string;
+  updates: any;
+}): Promise<{ tokenId: number; name?: string; description?: string; image?: string; attributes?: string[] } | any> {
   try {
     const apiClient = getApiClient();
-    const res = await apiClient.put(`/sbt/updateMetadata/${tokenId}`, updates);
+    const res = await apiClient.put(`/sbt/updateMetadata/${cognitoSub}`, updates);
     return res.data;
   } catch (error) {
     console.error("Error in updateSbtMetadata:", error);
