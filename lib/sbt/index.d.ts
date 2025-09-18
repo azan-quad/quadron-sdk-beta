@@ -1,24 +1,9 @@
-declare function mintSbt(userAddress: string, name?: string, description?: string, image?: string, attributes?: string[]): Promise<{
-    tokenId: number;
-    owner: string;
-    metadata: any;
-} | any>;
-declare function revokeSbt(tokenId: number): Promise<any>;
-declare function hasSbt(userAddress: string): Promise<any>;
-declare function getSbtMetadata(tokenId: number): Promise<{
-    tokenId: number;
-    name?: string;
-    description?: string;
-    image?: string;
-    attributes?: string[];
-} | any>;
-declare function updateSbtMetadata(tokenId: number, updates: object): Promise<{
-    tokenId: number;
-    name?: string;
-    description?: string;
-    image?: string;
-    attributes?: string[];
-} | any>;
+import { GetSbtMetadataRes, MintSbtReq, MintSbtRes, RevokeSbtReq, UpdateSbtMetadataReq, UpdateSbtMetadataRes } from "../interfaces";
+declare function hasSbt(): Promise<any>;
+declare function revokeSbt(arg: RevokeSbtReq): Promise<any>;
+declare function getSbtMetadata(): Promise<GetSbtMetadataRes>;
+declare function mintSbt(arg: MintSbtReq): Promise<MintSbtRes>;
+declare function updateSbtMetadata(updates: UpdateSbtMetadataReq): Promise<UpdateSbtMetadataRes>;
 export declare const sbt: {
     mintSbt: typeof mintSbt;
     revokeSbt: typeof revokeSbt;
