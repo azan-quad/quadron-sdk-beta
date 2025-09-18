@@ -1,48 +1,17 @@
 import { getApiClient } from "../apiClient";
+import {
+  GetSbtMetadataRes,
+  MintSbtReq,
+  MintSbtRes,
+  RevokeSbtReq,
+  UpdateSbtMetadataReq,
+  UpdateSbtMetadataRes,
+} from "../interfaces";
 
-async function mintSbt({
-  cognitoSub,
-  name,
-  description,
-  image,
-  attributes,
-}: {
-  cognitoSub: string;
-  name?: string;
-  description?: string;
-  image?: string;
-  attributes?: string[];
-}): Promise<{ tokenId: number; owner: string; metadata: any } | any> {
+async function hasSbt(): Promise<any> {
   try {
-    if (!cognitoSub) throw new Error("cognitoSub is required");
     const apiClient = getApiClient();
-    const res = await apiClient.post("/sbt/mint", { cognitoSub, name, description, image, attributes });
-    return res.data;
-  } catch (error) {
-    console.error("Error in mintSbt:", error);
-    return null;
-  }
-}
-
-async function revokeSbt(cognitoSub: { cognitoSub: string }): Promise<any> {
-  try {
-    if (cognitoSub === undefined || cognitoSub === null) {
-      throw new Error("cognitoSub is required");
-    }
-    const apiClient = getApiClient();
-    const res = await apiClient.post("/sbt/revoke", { cognitoSub });
-    return res.data;
-  } catch (error) {
-    console.error("Error in revokeSbt:", error);
-    return null;
-  }
-}
-
-async function hasSbt(cognitoSub: { cognitoSub: string }): Promise<any> {
-  try {
-    if (!cognitoSub) throw new Error("cognitoSub is required");
-    const apiClient = getApiClient();
-    const res = await apiClient.get(`/sbt/exists/${cognitoSub}`);
+    const res = await apiClient.get(`/sbt/exists`);
     return res.data;
   } catch (error) {
     console.error("Error in hasSbt:", error);
@@ -50,12 +19,21 @@ async function hasSbt(cognitoSub: { cognitoSub: string }): Promise<any> {
   }
 }
 
-async function getSbtMetadata(cognitoSub: {
-  cognitoSub: string;
-}): Promise<{ tokenId: number; name?: string; description?: string; image?: string; attributes?: string[] } | any> {
+async function revokeSbt(arg: RevokeSbtReq): Promise<any> {
   try {
     const apiClient = getApiClient();
-    const res = await apiClient.get(`/sbt/metadata/${cognitoSub}`);
+    const res = await apiClient.post("/sbt/revoke", arg);
+    return res.data;
+  } catch (error) {
+    console.error("Error in revokeSbt:", error);
+    return null;
+  }
+}
+
+async function getSbtMetadata(): Promise<GetSbtMetadataRes> {
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.get(`/sbt/metadata`);
     return res.data;
   } catch (error) {
     console.error("Error in getSbtMetadata:", error);
@@ -63,16 +41,21 @@ async function getSbtMetadata(cognitoSub: {
   }
 }
 
-async function updateSbtMetadata({
-  cognitoSub,
-  updates,
-}: {
-  cognitoSub: string;
-  updates: any;
-}): Promise<{ tokenId: number; name?: string; description?: string; image?: string; attributes?: string[] } | any> {
+async function mintSbt(arg: MintSbtReq): Promise<MintSbtRes> {
   try {
     const apiClient = getApiClient();
-    const res = await apiClient.put(`/sbt/updateMetadata/${cognitoSub}`, updates);
+    const res = await apiClient.post("/sbt/mint", arg);
+    return res.data;
+  } catch (error) {
+    console.error("Error in mintSbt:", error);
+    return null;
+  }
+}
+
+async function updateSbtMetadata(updates: UpdateSbtMetadataReq): Promise<UpdateSbtMetadataRes> {
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.put(`/sbt/updateMetadata`, updates);
     return res.data;
   } catch (error) {
     console.error("Error in updateSbtMetadata:", error);

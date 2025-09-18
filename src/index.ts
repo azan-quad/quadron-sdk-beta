@@ -3,6 +3,8 @@ import { sbt } from "./sbt";
 
 export interface QuadronSDKConfig {
   API_BASE_URL: string;
+  isClient: boolean;
+  COGNITO_JWT?: string;
   API_KEY?: string;
 }
 
@@ -12,6 +14,14 @@ export function initSDK(config: QuadronSDKConfig) {
   if (!config || !config.API_BASE_URL) {
     throw new Error("API_BASE_URL is required to initialize the SDK");
   }
+  if (config.isClient && !config.COGNITO_JWT) {
+    throw new Error("COGNITO_JWT is required to initialize the SDK on client side");
+  }
+  
+  if (!config.isClient && !config.API_KEY) {
+    throw new Error("API_KEY is required to initialize the SDK on server side");
+  }
+
   sdkConfig = config;
   return {
     wallets: {

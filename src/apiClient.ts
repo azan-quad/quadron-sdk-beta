@@ -11,6 +11,7 @@ export function getApiClient() {
     headers: {
       "Content-Type": "application/json",
       ...(config.API_KEY ? { "x-api-key": config.API_KEY } : {}),
+      ...(config.COGNITO_JWT ? { Authorization: `Bearer ${config.COGNITO_JWT}` } : {}),
     },
   });
 }
