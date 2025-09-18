@@ -84,7 +84,7 @@ quadron.sbt.revoke({ cognitoSub: 'user-sub' }); // Calls: /sbt/revoke (POST)
 **Note:**
 - Replace `'user-sub'` with the actual Cognito user sub if required by your backend logic.
 - Replace `'YOUR_API_KEY'` with your backend’s API key in the SDK config.
-- Frontend functions do not require API key or Bearer token.
+- Frontend functions do not require API key.
 - Backend/admin functions must be protected and never exposed to the frontend.
 
 ---
