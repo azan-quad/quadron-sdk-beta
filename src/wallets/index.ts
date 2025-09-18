@@ -10,7 +10,7 @@ import {
 } from "../interfaces";
 import { sbt } from "../sbt";
 
-async function getWallet(): Promise<GetWalletRes> {
+async function getWallet(): Promise<GetWalletRes | null> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.post("/wallet");
@@ -21,7 +21,7 @@ async function getWallet(): Promise<GetWalletRes> {
   }
 }
 
-async function createWallet(arg: CreateWalletReq): Promise<CreateWalletRes> {
+async function createWallet(arg: CreateWalletReq): Promise<CreateWalletRes | null> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.post("/wallet/create", arg);
@@ -32,7 +32,7 @@ async function createWallet(arg: CreateWalletReq): Promise<CreateWalletRes> {
   }
 }
 
-async function recoverWallet(): Promise<RecoverWalletRes> {
+async function recoverWallet(): Promise<RecoverWalletRes | null> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.post(`/wallet/recover`);
@@ -43,7 +43,7 @@ async function recoverWallet(): Promise<RecoverWalletRes> {
   }
 }
 
-async function createSmartWalletForExisting(): Promise<CreateSmartWalletForExistingRes> {
+async function createSmartWalletForExisting(): Promise<CreateSmartWalletForExistingRes | null> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.post("/wallet/smart");

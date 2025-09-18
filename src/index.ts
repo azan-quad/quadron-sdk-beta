@@ -1,12 +1,8 @@
+
+export * from "./interfaces";
 import { wallet } from "./wallets";
 import { sbt } from "./sbt";
-
-export interface QuadronSDKConfig {
-  API_BASE_URL: string;
-  isClient: boolean;
-  COGNITO_JWT?: string;
-  API_KEY?: string;
-}
+import { QuadronSDKConfig } from "./interfaces";
 
 let sdkConfig: QuadronSDKConfig | null = null;
 

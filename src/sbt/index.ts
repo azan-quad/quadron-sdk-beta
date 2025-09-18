@@ -30,7 +30,7 @@ async function revokeSbt(arg: RevokeSbtReq): Promise<any> {
   }
 }
 
-async function getSbtMetadata(): Promise<GetSbtMetadataRes> {
+async function getSbtMetadata(): Promise<GetSbtMetadataRes | null> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.get(`/sbt/metadata`);
@@ -41,7 +41,7 @@ async function getSbtMetadata(): Promise<GetSbtMetadataRes> {
   }
 }
 
-async function mintSbt(arg: MintSbtReq): Promise<MintSbtRes> {
+async function mintSbt(arg: MintSbtReq): Promise<MintSbtRes | null> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.post("/sbt/mint", arg);
@@ -52,7 +52,7 @@ async function mintSbt(arg: MintSbtReq): Promise<MintSbtRes> {
   }
 }
 
-async function updateSbtMetadata(updates: UpdateSbtMetadataReq): Promise<UpdateSbtMetadataRes> {
+async function updateSbtMetadata(updates: UpdateSbtMetadataReq): Promise<UpdateSbtMetadataRes | null> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.put(`/sbt/updateMetadata`, updates);

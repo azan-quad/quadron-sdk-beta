@@ -1,73 +1,79 @@
-export type GetWalletRes = {
+export interface QuadronSDKConfig {
+    API_BASE_URL: string;
+    isClient: boolean;
+    COGNITO_JWT?: string;
+    API_KEY?: string;
+}
+export interface GetWalletRes {
     cognitoSub: string;
     publicAddress: string;
     smartWalletAddress: string;
     isSmartWalletDeployed: boolean;
     revoked: boolean;
-} | null;
-export type CreateWalletReq = {
+}
+export interface CreateWalletReq {
     withSmartWallet: boolean;
-};
-export type CreateWalletRes = {
+}
+export interface CreateWalletRes {
     publicAddress: string;
     smartWalletAddress: string;
-} | null;
-export type RecoverWalletRes = {
+}
+export interface RecoverWalletRes {
     address: string;
     privateKey: string;
     mnemonic: string;
-} | null;
-export type CreateSmartWalletForExistingRes = {
+}
+export interface CreateSmartWalletForExistingRes {
     publicAddress: string;
     smartWalletAddress: string;
-} | null;
-export type CreateWalletAndMintSbtReq = {
+}
+export interface CreateWalletAndMintSbtReq {
     withSmartWallet: boolean;
     mintSBT: boolean;
     name?: string;
     description?: string;
     image?: string;
     attributes?: string[];
-};
-export type CreateWalletAndMintSbtRes = {
+}
+export interface CreateWalletAndMintSbtRes {
     wallet: {
         publicAddress: string;
         smartWalletAddress: string;
     } | null;
-    mintedToken: MintSbtRes | undefined;
-};
-export type GetSbtMetadataRes = {
+    mintedToken: MintSbtRes | null | undefined;
+}
+export interface GetSbtMetadataRes {
     tokenId: number;
     name?: string;
     description?: string;
     image?: string;
     attributes?: string[];
-} | null;
-export type RevokeSbtReq = {
+}
+export interface RevokeSbtReq {
     cognitoSub: string;
-};
-export type MintSbtReq = {
+}
+export interface MintSbtReq {
     name?: string;
     description?: string;
     image?: string;
     attributes?: string[];
-} | null;
-export type MintSbtRes = {
+}
+export interface MintSbtRes {
     tokenId: number;
     owner: string;
     metadata: any;
-} | null;
-export type UpdateSbtMetadataReq = {
+}
+export interface UpdateSbtMetadataReq {
     cognitoSub: string;
     name?: string;
     description?: string;
     image?: string;
     attributes?: string[];
-};
-export type UpdateSbtMetadataRes = {
+}
+export interface UpdateSbtMetadataRes {
     tokenId: number;
     name?: string;
     description?: string;
     image?: string;
     attributes?: string[];
-} | null;
+}
