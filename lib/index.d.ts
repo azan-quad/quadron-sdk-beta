@@ -1,19 +1,22 @@
 export * from "./interfaces";
+import { wallet } from "./wallets";
+import { sbt } from "./sbt";
 import { QuadronSDKConfig } from "./interfaces";
-export declare function initSDK(config: QuadronSDKConfig): {
+interface Quad {
     wallets: {
-        get: () => Promise<import("./interfaces").GetWalletRes | null>;
-        create: (arg: import("./interfaces").CreateWalletReq) => Promise<import("./interfaces").CreateWalletRes | null>;
-        recover: () => Promise<import("./interfaces").RecoverWalletRes | null>;
-        smart: () => Promise<import("./interfaces").CreateSmartWalletForExistingRes | null>;
-        createWalletAndMintSbt: (arg: import("./interfaces").CreateWalletAndMintSbtReq) => Promise<import("./interfaces").CreateWalletAndMintSbtRes>;
+        get: typeof wallet.getWallet;
+        create: typeof wallet.createWallet;
+        recover: typeof wallet.recoverWallet;
+        smart: typeof wallet.createSmartWalletForExisting;
+        createWalletAndMintSbt: typeof wallet.createWalletAndMintSbt;
     };
     sbt: {
-        mint: (arg: import("./interfaces").MintSbtReq) => Promise<import("./interfaces").MintSbtRes | null>;
-        revoke: (arg: import("./interfaces").RevokeSbtReq) => Promise<any>;
-        exists: () => Promise<any>;
-        fetch: () => Promise<import("./interfaces").GetSbtMetadataRes | null>;
-        update: (updates: import("./interfaces").UpdateSbtMetadataReq) => Promise<import("./interfaces").UpdateSbtMetadataRes | null>;
+        mint: typeof sbt.mintSbt;
+        revoke: typeof sbt.revokeSbt;
+        exists: typeof sbt.hasSbt;
+        fetch: typeof sbt.getSbtMetadata;
+        update: typeof sbt.updateSbtMetadata;
     };
-};
+}
+export declare function initSDK(config: QuadronSDKConfig): Quad;
 export declare function getSDKConfig(): QuadronSDKConfig | null;
