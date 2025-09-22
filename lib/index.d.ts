@@ -8,14 +8,16 @@ interface Quad {
         create: typeof wallet.createWallet;
         recover: typeof wallet.recoverWallet;
         smart: typeof wallet.createSmartWalletForExisting;
+        revoke: typeof wallet.revokeWallet;
         createWalletAndMintSbt: typeof wallet.createWalletAndMintSbt;
     };
     sbt: {
         mint: typeof sbt.mintSbt;
         revoke: typeof sbt.revokeSbt;
-        exists: typeof sbt.hasSbt;
-        fetch: typeof sbt.getSbtMetadata;
+        getMySbt: typeof sbt.getMySbt;
+        getSbtById: typeof sbt.getSbtByAccessId;
         update: typeof sbt.updateSbtMetadata;
+        getPublicMetadata: typeof sbt.getPublicSbtMetadata;
     };
 }
 export declare function initSDK(config: QuadronSDKConfig): Quad;
