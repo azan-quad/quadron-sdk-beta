@@ -1,45 +1,14 @@
 import { getApiClient } from "../apiClient";
 import {
-  GetSbtMetadataRes,
   MintSbtReq,
   MintSbtRes,
   RevokeSbtReq,
+  RevokeSbtRes,
+  GetSbtRes,
   UpdateSbtMetadataReq,
   UpdateSbtMetadataRes,
+  PublicSbtMetadata,
 } from "../interfaces";
-
-async function hasSbt(): Promise<any> {
-  try {
-    const apiClient = getApiClient();
-    const res = await apiClient.get(`/sbt/exists`);
-    return res.data;
-  } catch (error) {
-    console.error("Error in hasSbt:", error);
-    return null;
-  }
-}
-
-async function revokeSbt(arg: RevokeSbtReq): Promise<any> {
-  try {
-    const apiClient = getApiClient();
-    const res = await apiClient.post("/sbt/revoke", arg);
-    return res.data;
-  } catch (error) {
-    console.error("Error in revokeSbt:", error);
-    return null;
-  }
-}
-
-async function getSbtMetadata(): Promise<GetSbtMetadataRes | null> {
-  try {
-    const apiClient = getApiClient();
-    const res = await apiClient.get(`/sbt/metadata`);
-    return res.data;
-  } catch (error) {
-    console.error("Error in getSbtMetadata:", error);
-    return null;
-  }
-}
 
 async function mintSbt(arg: MintSbtReq): Promise<MintSbtRes | null> {
   try {
@@ -52,10 +21,43 @@ async function mintSbt(arg: MintSbtReq): Promise<MintSbtRes | null> {
   }
 }
 
+async function revokeSbt(arg: RevokeSbtReq): Promise<RevokeSbtRes | null> {
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.post("/sbt/revoke", arg);
+    return res.data;
+  } catch (error) {
+    console.error("Error in revokeSbt:", error);
+    return null;
+  }
+}
+
+async function getMySbt(): Promise<GetSbtRes | null> {
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.get("/sbt/me");
+    return res.data;
+  } catch (error) {
+    console.error("Error in getMySbt:", error);
+    return null;
+  }
+}
+
+async function getSbtByAccessId(cognitoSub: string): Promise<GetSbtRes | null> {
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.get(`/sbt/user?cognitoSub=${encodeURIComponent(cognitoSub)}`);
+    return res.data;
+  } catch (error) {
+    console.error("Error in getSbtByCognitoSub:", error);
+    return null;
+  }
+}
+
 async function updateSbtMetadata(updates: UpdateSbtMetadataReq): Promise<UpdateSbtMetadataRes | null> {
   try {
     const apiClient = getApiClient();
-    const res = await apiClient.put(`/sbt/updateMetadata`, updates);
+    const res = await apiClient.patch("/sbt/update", updates);
     return res.data;
   } catch (error) {
     console.error("Error in updateSbtMetadata:", error);
@@ -63,10 +65,22 @@ async function updateSbtMetadata(updates: UpdateSbtMetadataReq): Promise<UpdateS
   }
 }
 
+async function getPublicSbtMetadata(tokenId: number): Promise<PublicSbtMetadata | null> {
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.get(`/sbt/token/${tokenId}`);
+    return res.data;
+  } catch (error) {
+    console.error("Error in getPublicSbtMetadata:", error);
+    return null;
+  }
+}
+
 export const sbt = {
   mintSbt,
   revokeSbt,
-  hasSbt,
+  getMySbt,
+  getSbtByAccessId,
   updateSbtMetadata,
-  getSbtMetadata,
+  getPublicSbtMetadata,
 };
