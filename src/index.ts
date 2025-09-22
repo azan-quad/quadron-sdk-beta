@@ -37,6 +37,22 @@ export function initSDK(config: QuadronSDKConfig): Quad {
   }
 
   sdkConfig = config;
+
+  const finalConfig = {
+    API_BASE_URL: config.API_BASE_URL,
+    API_KEY: config.API_KEY,
+    COGNITO_JWT: config.COGNITO_JWT,
+    isClient: config.isClient,
+  };
+
+  console.log("🔧 initSDK config:", {
+    baseUrl: finalConfig.API_BASE_URL,
+    apiKey: !!finalConfig.API_KEY,
+    jwtPresent: !!finalConfig.COGNITO_JWT,
+    jwtSnippet: finalConfig.COGNITO_JWT ? finalConfig.COGNITO_JWT.substring(0, 20) + "..." : null,
+    isClient: finalConfig.isClient,
+  });
+
   return {
     wallets: {
       get: wallet.getWallet,
