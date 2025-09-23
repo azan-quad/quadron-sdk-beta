@@ -1,26 +1,7 @@
 export * from "./interfaces";
 import { wallet } from "./wallets";
 import { sbt } from "./sbt";
-import { QuadronSDKConfig } from "./interfaces";
-
-interface Quad {
-  wallets: {
-    get: typeof wallet.getWallet;
-    create: typeof wallet.createWallet;
-    recover: typeof wallet.recoverWallet;
-    smart: typeof wallet.createSmartWalletForExisting;
-    revoke: typeof wallet.revokeWallet;
-    createWalletAndMintSbt: typeof wallet.createWalletAndMintSbt;
-  };
-  sbt: {
-    mint: typeof sbt.mintSbt;
-    revoke: typeof sbt.revokeSbt;
-    getMySbt: typeof sbt.getMySbt;
-    getSbtById: typeof sbt.getSbtByAccessId;
-    update: typeof sbt.updateSbtMetadata;
-    getPublicMetadata: typeof sbt.getPublicSbtMetadata;
-  };
-}
+import { QuadronSDKConfig, Quad } from "./interfaces";
 
 let sdkConfig: QuadronSDKConfig | null = null;
 
@@ -37,21 +18,6 @@ export function initSDK(config: QuadronSDKConfig): Quad {
   }
 
   sdkConfig = config;
-
-  const finalConfig = {
-    API_BASE_URL: config.API_BASE_URL,
-    API_KEY: config.API_KEY,
-    COGNITO_JWT: config.COGNITO_JWT,
-    isClient: config.isClient,
-  };
-
-  console.log("🔧 initSDK config:", {
-    baseUrl: finalConfig.API_BASE_URL,
-    apiKey: !!finalConfig.API_KEY,
-    jwtPresent: !!finalConfig.COGNITO_JWT,
-    jwtSnippet: finalConfig.COGNITO_JWT ? finalConfig.COGNITO_JWT.substring(0, 20) + "..." : null,
-    isClient: finalConfig.isClient,
-  });
 
   return {
     wallets: {
@@ -72,7 +38,10 @@ export function initSDK(config: QuadronSDKConfig): Quad {
     },
   };
 }
+// make Upgdate Access Token funtion in here
 
 export function getSDKConfig(): QuadronSDKConfig | null {
   return sdkConfig;
 }
+
+export type { Quad } from "./interfaces";

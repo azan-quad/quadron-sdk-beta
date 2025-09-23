@@ -1,3 +1,6 @@
+import { wallet } from "../wallets";
+import { sbt } from "../sbt";
+
 export interface QuadronSDKConfig {
   API_BASE_URL: string;
   isClient: boolean;
@@ -5,7 +8,25 @@ export interface QuadronSDKConfig {
   API_KEY?: string;
 }
 
-// GET /wallet/
+export interface Quad {
+  wallets: {
+    get: typeof wallet.getWallet;
+    create: typeof wallet.createWallet;
+    recover: typeof wallet.recoverWallet;
+    smart: typeof wallet.createSmartWalletForExisting;
+    revoke: typeof wallet.revokeWallet;
+    createWalletAndMintSbt: typeof wallet.createWalletAndMintSbt;
+  };
+  sbt: {
+    mint: typeof sbt.mintSbt;
+    revoke: typeof sbt.revokeSbt;
+    getMySbt: typeof sbt.getMySbt;
+    getSbtById: typeof sbt.getSbtByAccessId;
+    update: typeof sbt.updateSbtMetadata;
+    getPublicMetadata: typeof sbt.getPublicSbtMetadata;
+  };
+}
+
 export interface GetWalletRes {
   _id: string;
   cognitoSub: string;
@@ -17,7 +38,6 @@ export interface GetWalletRes {
   createdAt: string;
 }
 
-// POST /wallet/create
 export interface CreateWalletReq {
   withSmartWallet: boolean;
 }
@@ -28,20 +48,17 @@ export interface CreateWalletRes {
   isSmartWalletDeployed: boolean;
 }
 
-// POST /wallet/recover
 export interface RecoverWalletRes {
   address: string;
   privateKey: string;
   mnemonic: string;
 }
 
-// POST /wallet/smart
 export interface CreateSmartWalletForExistingRes {
   publicAddress: string;
   smartWalletAddress: string;
 }
 
-// POST /wallet/revoke
 export interface RevokeWalletReq {
   cognitoSub: string;
 }
