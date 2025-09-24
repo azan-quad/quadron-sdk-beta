@@ -80,14 +80,14 @@ async function createWalletAndMintSbt(arg: CreateWalletAndMintSbtReq): Promise<C
     // Step 1: create wallet
     const walletRes = await apiClient.post<CreateWalletRes>("/wallet/create", {
       withSmartWallet: arg.withSmartWallet,
-      cognitoSub: arg.cognitoSub,
+      userSub: arg.userSub,
     });
 
     let sbtRes: MintSbtRes | undefined = undefined;
 
     // Step 2: optionally mint SBT
     if (arg.mintSbt) {
-      const mintReq: MintSbtReq = { cognitoSub: arg.cognitoSub };
+      const mintReq: MintSbtReq = { userSub: arg.userSub };
       const mintRes = await apiClient.post<MintSbtRes>("/sbt/mint", mintReq);
       sbtRes = mintRes.data;
     }

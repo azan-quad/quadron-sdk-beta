@@ -43,13 +43,13 @@ async function getMySbt(): Promise<GetSbtRes | null> {
   }
 }
 
-async function getSbtByAccessId(cognitoSub: string): Promise<GetSbtRes | null> {
+async function getSbtByAccessId(userSub: string): Promise<GetSbtRes | null> {
   try {
     const apiClient = getApiClient();
-    const res = await apiClient.get(`/sbt/user?cognitoSub=${encodeURIComponent(cognitoSub)}`);
+    const res = await apiClient.get(`/sbt/user?userSub=${encodeURIComponent(userSub)}`);
     return res.data;
   } catch (error) {
-    console.error("Error in getSbtByCognitoSub:", error);
+    console.error("Error in getSbtByUserSub:", error);
     return null;
   }
 }

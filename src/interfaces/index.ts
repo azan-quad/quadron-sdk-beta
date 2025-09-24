@@ -4,7 +4,7 @@ import { sbt } from "../sbt";
 export interface QuadronSDKConfig {
   API_BASE_URL: string;
   isClient: boolean;
-  COGNITO_JWT?: string;
+  ACCESS_TOKEN?: string;
   API_KEY?: string;
 }
 
@@ -29,7 +29,7 @@ export interface Quad {
 
 export interface GetWalletRes {
   _id: string;
-  cognitoSub: string;
+  userSub: string;
   publicAddress: string;
   smartWalletAddress: string | null;
   isSmartWalletDeployed: boolean;
@@ -42,7 +42,7 @@ export interface CreateWalletReq {
   withSmartWallet: boolean;
 }
 export interface CreateWalletRes {
-  cognitoSub: string;
+  userSub: string;
   publicAddress: string;
   smartWalletAddress: string | null;
   isSmartWalletDeployed: boolean;
@@ -60,16 +60,16 @@ export interface CreateSmartWalletForExistingRes {
 }
 
 export interface RevokeWalletReq {
-  cognitoSub: string;
+  userSub: string;
 }
 export interface RevokeWalletRes {
-  cognitoSub: string;
+  userSub: string;
   revoked: boolean;
   publicAddress: string;
 }
 
 export interface CreateWalletAndMintSbtReq {
-  cognitoSub: string;
+  userSub: string;
   withSmartWallet: boolean;
   mintSbt: boolean;
 }
@@ -90,11 +90,11 @@ export interface Identity {
 }
 
 export interface MintSbtReq {
-  cognitoSub: string;
+  userSub: string;
 }
 
 export interface MintSbtRes {
-  cognitoSub: string;
+  userSub: string;
   tokenId: number;
   ownerAddress: string;
   identity: Identity;
@@ -104,7 +104,7 @@ export interface MintSbtRes {
 }
 
 export interface RevokeSbtReq {
-  cognitoSub: string;
+  userSub: string;
 }
 
 export interface RevokeSbtRes {
@@ -113,7 +113,7 @@ export interface RevokeSbtRes {
 }
 
 export interface GetSbtRes {
-  cognitoSub: string;
+  userSub: string;
   tokenId: number;
   ownerAddress: string;
   identity: Identity;
@@ -123,7 +123,7 @@ export interface GetSbtRes {
 }
 
 export interface UpdateSbtMetadataReq {
-  cognitoSub: string;
+  userSub: string;
   updates: {
     quadronRole?: string;
     reputationScore?: number;
@@ -136,7 +136,7 @@ export interface UpdateSbtMetadataReq {
 export interface UpdateSbtMetadataRes {
   tokenId: number;
   ownerAddress: string;
-  cognitoSub: string;
+  userSub: string;
   revoked: boolean;
   createdAt: string;
   updatedAt: string;

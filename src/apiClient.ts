@@ -12,10 +12,10 @@ export function getApiClient() {
   };
 
   if (config.isClient) {
-    if (!config.COGNITO_JWT) {
-      throw new Error("COGNITO_JWT is required in client mode");
+    if (!config.ACCESS_TOKEN) {
+      throw new Error("ACCESS_TOKEN is required in client mode");
     }
-    headers["Authorization"] = `Bearer ${config.COGNITO_JWT}`;
+    headers["Authorization"] = `Bearer ${config.ACCESS_TOKEN}`;
   } else {
     if (!config.API_KEY) {
       throw new Error("API_KEY is required in server mode");
