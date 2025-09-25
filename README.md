@@ -50,7 +50,6 @@ updateAccessToken("<NEW_ACCESS_TOKEN>");
 | `wallets.recover()`                   | Wallets | Client | Bearer Token  | `POST /wallet/recover`         |
 | `wallets.smart()`                     | Wallets | Client | Bearer Token  | `POST /wallet/smart`           |
 | `wallets.revoke(userSub)`             | Wallets | Server | API Key       | `POST /wallet/revoke`          |
-| `wallets.createWalletAndMintSbt(...)` | Wallets | Client | Bearer Token  | `/wallet/create` + `/sbt/mint` |
 | `sbt.mint(userSub)`                   | SBT     | Server | API Key       | `POST /sbt/mint`               |
 | `sbt.revoke(userSub)`                 | SBT     | Server | API Key       | `POST /sbt/revoke`             |
 | `sbt.getMySbt()`                      | SBT     | Client | Bearer Token  | `GET /sbt/me`                  |
