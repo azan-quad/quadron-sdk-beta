@@ -7,7 +7,7 @@ A unified SDK for managing **wallets** and **soulbound tokens (SBTs)** across fr
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ```bash
 npm install quadron-sdk
@@ -15,7 +15,7 @@ npm install quadron-sdk
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 ```ts
 import { initSDK, updateAccessToken } from "quadron-sdk";
@@ -40,7 +40,7 @@ updateAccessToken("<NEW_ACCESS_TOKEN>");
 
 ---
 
-## 📖 Function Reference
+## Function Reference
 
 | Function                              | Module  | Mode   | Auth Required | Backend Route                  |
 | ------------------------------------- | ------- | ------ | ------------- | ------------------------------ |
@@ -60,7 +60,7 @@ updateAccessToken("<NEW_ACCESS_TOKEN>");
 
 ---
 
-## 💳 Wallet Examples (Client)
+## Wallet Examples (Client)
 
 ```ts
 // Get authenticated user wallet
@@ -78,7 +78,7 @@ await quadron.wallets.smart();
 
 ---
 
-## 🪙 SBT Examples
+## SBT Examples
 
 ### Client
 
