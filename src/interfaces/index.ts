@@ -11,6 +11,7 @@ export interface QuadronSDKConfig {
 export interface Quad {
   wallets: {
     get: typeof wallet.getWallet;
+    getBySub: typeof wallet.getWalletBySub;
     create: typeof wallet.createWallet;
     recover: typeof wallet.recoverWallet;
     smart: typeof wallet.createSmartWalletForExisting;
@@ -21,7 +22,7 @@ export interface Quad {
     mint: typeof sbt.mintSbt;
     revoke: typeof sbt.revokeSbt;
     getMySbt: typeof sbt.getMySbt;
-    getSbtById: typeof sbt.getSbtByAccessId;
+    getSbtBySub: typeof sbt.getSbtBySub;
     update: typeof sbt.updateSbtMetadata;
     getPublicMetadata: typeof sbt.getPublicSbtMetadata;
   };
@@ -36,6 +37,10 @@ export interface GetWalletRes {
   revoked: boolean;
   sbtTokenId: string | null;
   createdAt: string;
+}
+
+export interface GetWalletBySubReq {
+  userSub: string;
 }
 
 export interface CreateWalletReq {

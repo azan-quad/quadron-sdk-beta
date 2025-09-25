@@ -22,6 +22,7 @@ export function initSDK(config: QuadronSDKConfig): Quad {
   return {
     wallets: {
       get: wallet.getWallet,
+      getBySub: wallet.getWalletBySub,
       create: wallet.createWallet,
       recover: wallet.recoverWallet,
       smart: wallet.createSmartWalletForExisting,
@@ -32,13 +33,23 @@ export function initSDK(config: QuadronSDKConfig): Quad {
       mint: sbt.mintSbt,
       revoke: sbt.revokeSbt,
       getMySbt: sbt.getMySbt,
-      getSbtById: sbt.getSbtByAccessId,
+      getSbtBySub: sbt.getSbtBySub,
       update: sbt.updateSbtMetadata,
       getPublicMetadata: sbt.getPublicSbtMetadata,
     },
   };
 }
-// make Upgdate Access Token funtion in here
+
+export function updateAccessToken(newToken: string) {
+  if (!sdkConfig) {
+    throw new Error("SDK not initialized. Please call initSDK first.");
+  }
+  if (!sdkConfig.isClient) {
+    throw new Error("updateAccessToken can only be used in client mode");
+  }
+  sdkConfig.ACCESS_TOKEN = newToken;
+  return sdkConfig;
+}
 
 export function getSDKConfig(): QuadronSDKConfig | null {
   return sdkConfig;

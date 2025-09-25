@@ -43,7 +43,7 @@ async function getMySbt(): Promise<GetSbtRes | null> {
   }
 }
 
-async function getSbtByAccessId(userSub: string): Promise<GetSbtRes | null> {
+async function getSbtBySub(userSub: string): Promise<GetSbtRes | null> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.get(`/sbt/user?userSub=${encodeURIComponent(userSub)}`);
@@ -80,7 +80,7 @@ export const sbt = {
   mintSbt,
   revokeSbt,
   getMySbt,
-  getSbtByAccessId,
+  getSbtBySub,
   updateSbtMetadata,
   getPublicSbtMetadata,
 };

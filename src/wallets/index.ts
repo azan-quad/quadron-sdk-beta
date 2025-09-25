@@ -1,5 +1,6 @@
 import { getApiClient } from "../apiClient";
 import {
+  GetWalletBySubReq,
   CreateSmartWalletForExistingRes,
   CreateWalletAndMintSbtReq,
   CreateWalletAndMintSbtRes,
@@ -21,6 +22,19 @@ async function getWallet(): Promise<GetWalletRes | null> {
     return res.data;
   } catch (error) {
     console.error("Error in getWallet:", error);
+    return null;
+  }
+}
+
+async function getWalletBySub(arg: GetWalletBySubReq): Promise<GetWalletRes | null> {
+  try {
+    const apiClient = getApiClient();
+    const res = await apiClient.get("/wallet/getbysub", {
+      params: arg,
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error in getWalletBySub:", error);
     return null;
   }
 }
@@ -104,6 +118,7 @@ async function createWalletAndMintSbt(arg: CreateWalletAndMintSbtReq): Promise<C
 
 export const wallet = {
   getWallet,
+  getWalletBySub,
   createWallet,
   recoverWallet,
   createSmartWalletForExisting,
