@@ -27,7 +27,6 @@ export function initSDK(config: QuadronSDKConfig): Quad {
       recover: wallet.recoverWallet,
       smart: wallet.createSmartWalletForExisting,
       revoke: wallet.revokeWallet,
-      createWalletAndMintSbt: wallet.createWalletAndMintSbt,
     },
     sbt: {
       mint: sbt.mintSbt,

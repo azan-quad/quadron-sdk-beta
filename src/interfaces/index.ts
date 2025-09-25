@@ -16,7 +16,6 @@ export interface Quad {
     recover: typeof wallet.recoverWallet;
     smart: typeof wallet.createSmartWalletForExisting;
     revoke: typeof wallet.revokeWallet;
-    createWalletAndMintSbt: typeof wallet.createWalletAndMintSbt;
   };
   sbt: {
     mint: typeof sbt.mintSbt;

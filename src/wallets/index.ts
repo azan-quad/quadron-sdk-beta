@@ -87,35 +87,6 @@ async function revokeWallet(arg: RevokeWalletReq): Promise<RevokeWalletRes | nul
   }
 }
 
-async function createWalletAndMintSbt(arg: CreateWalletAndMintSbtReq): Promise<CreateWalletAndMintSbtRes | null> {
-  try {
-    const apiClient = getApiClient();
-
-    // Step 1: create wallet
-    const walletRes = await apiClient.post<CreateWalletRes>("/wallet/create", {
-      withSmartWallet: arg.withSmartWallet,
-      userSub: arg.userSub,
-    });
-
-    let sbtRes: MintSbtRes | undefined = undefined;
-
-    // Step 2: optionally mint SBT
-    if (arg.mintSbt) {
-      const mintReq: MintSbtReq = { userSub: arg.userSub };
-      const mintRes = await apiClient.post<MintSbtRes>("/sbt/mint", mintReq);
-      sbtRes = mintRes.data;
-    }
-
-    return {
-      wallet: walletRes.data,
-      sbt: sbtRes,
-    };
-  } catch (error) {
-    console.error("Error in createWalletAndMintSbt:", error);
-    return null;
-  }
-}
-
 export const wallet = {
   getWallet,
   getWalletBySub,
@@ -123,5 +94,4 @@ export const wallet = {
   recoverWallet,
   createSmartWalletForExisting,
   revokeWallet,
-  createWalletAndMintSbt,
 };
