@@ -3,6 +3,8 @@ import { wallet } from "./wallets";
 import { sbt } from "./sbt";
 import { QuadronSDKConfig, Quad } from "./interfaces";
 
+// attach updateAccessToken to the returned Quad object so it feels more like a real SDK instance
+
 let sdkConfig: QuadronSDKConfig | null = null;
 
 export function initSDK(config: QuadronSDKConfig): Quad {

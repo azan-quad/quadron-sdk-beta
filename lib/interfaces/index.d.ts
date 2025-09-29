@@ -1,12 +1,32 @@
+import { wallet } from "../wallets";
+import { sbt } from "../sbt";
 export interface QuadronSDKConfig {
     API_BASE_URL: string;
     isClient: boolean;
-    COGNITO_JWT?: string;
+    ACCESS_TOKEN?: string;
     API_KEY?: string;
+}
+export interface Quad {
+    wallets: {
+        get: typeof wallet.getWallet;
+        getBySub: typeof wallet.getWalletBySub;
+        create: typeof wallet.createWallet;
+        recover: typeof wallet.recoverWallet;
+        smart: typeof wallet.createSmartWalletForExisting;
+        revoke: typeof wallet.revokeWallet;
+    };
+    sbt: {
+        mint: typeof sbt.mintSbt;
+        revoke: typeof sbt.revokeSbt;
+        getMySbt: typeof sbt.getMySbt;
+        getSbtBySub: typeof sbt.getSbtBySub;
+        update: typeof sbt.updateSbtMetadata;
+        getPublicMetadata: typeof sbt.getPublicSbtMetadata;
+    };
 }
 export interface GetWalletRes {
     _id: string;
-    cognitoSub: string;
+    userSub: string;
     publicAddress: string;
     smartWalletAddress: string | null;
     isSmartWalletDeployed: boolean;
@@ -14,11 +34,14 @@ export interface GetWalletRes {
     sbtTokenId: string | null;
     createdAt: string;
 }
+export interface GetWalletBySubReq {
+    userSub: string;
+}
 export interface CreateWalletReq {
     withSmartWallet: boolean;
 }
 export interface CreateWalletRes {
-    cognitoSub: string;
+    userSub: string;
     publicAddress: string;
     smartWalletAddress: string | null;
     isSmartWalletDeployed: boolean;
@@ -33,15 +56,15 @@ export interface CreateSmartWalletForExistingRes {
     smartWalletAddress: string;
 }
 export interface RevokeWalletReq {
-    cognitoSub: string;
+    userSub: string;
 }
 export interface RevokeWalletRes {
-    cognitoSub: string;
+    userSub: string;
     revoked: boolean;
     publicAddress: string;
 }
 export interface CreateWalletAndMintSbtReq {
-    cognitoSub: string;
+    userSub: string;
     withSmartWallet: boolean;
     mintSbt: boolean;
 }
@@ -59,10 +82,10 @@ export interface Identity {
     name: string;
 }
 export interface MintSbtReq {
-    cognitoSub: string;
+    userSub: string;
 }
 export interface MintSbtRes {
-    cognitoSub: string;
+    userSub: string;
     tokenId: number;
     ownerAddress: string;
     identity: Identity;
@@ -71,14 +94,14 @@ export interface MintSbtRes {
     updatedAt: string;
 }
 export interface RevokeSbtReq {
-    cognitoSub: string;
+    userSub: string;
 }
 export interface RevokeSbtRes {
     success: boolean;
     tokenId: number;
 }
 export interface GetSbtRes {
-    cognitoSub: string;
+    userSub: string;
     tokenId: number;
     ownerAddress: string;
     identity: Identity;
@@ -87,7 +110,7 @@ export interface GetSbtRes {
     updatedAt: string;
 }
 export interface UpdateSbtMetadataReq {
-    cognitoSub: string;
+    userSub: string;
     updates: {
         quadronRole?: string;
         reputationScore?: number;
@@ -99,7 +122,7 @@ export interface UpdateSbtMetadataReq {
 export interface UpdateSbtMetadataRes {
     tokenId: number;
     ownerAddress: string;
-    cognitoSub: string;
+    userSub: string;
     revoked: boolean;
     createdAt: string;
     updatedAt: string;

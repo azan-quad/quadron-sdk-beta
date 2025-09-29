@@ -31,15 +31,17 @@ async function revokeSbt(arg: RevokeSbtReq): Promise<RevokeSbtRes | null> {
     return null;
   }
 }
-
 async function getMySbt(): Promise<GetSbtRes | null> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.get("/sbt/me");
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
+    if (error.response?.status === 404) {
+      return null;
+    }
     console.error("Error in getMySbt:", error);
-    return null;
+    throw error;
   }
 }
 
