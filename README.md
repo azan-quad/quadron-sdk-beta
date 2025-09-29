@@ -10,7 +10,7 @@ A unified SDK for managing **wallets** and **soulbound tokens (SBTs)** across fr
 ## Installation
 
 ```bash
-npm install quadron-sdk
+npm install quadron-sdk-beta
 ```
 
 ---
@@ -18,7 +18,7 @@ npm install quadron-sdk
 ## Quick Start
 
 ```ts
-import { initSDK, updateAccessToken } from "quadron-sdk";
+import { initSDK, updateAccessToken } from "quadron-sdk-beta";
 
 // Frontend (client mode)
 const quadron = initSDK({
@@ -42,20 +42,20 @@ updateAccessToken("<NEW_ACCESS_TOKEN>");
 
 ## Function Reference
 
-| Function                              | Module  | Mode   | Auth Required | Backend Route                  |
-| ------------------------------------- | ------- | ------ | ------------- | ------------------------------ |
-| `wallets.get()`                       | Wallets | Client | Bearer Token  | `GET /wallet/`                 |
-| `wallets.getBySub(userSub)`           | Wallets | Server | API Key       | `GET /wallet/user?userSub=`    |
-| `wallets.create({ withSmartWallet })` | Wallets | Client | Bearer Token  | `POST /wallet/create`          |
-| `wallets.recover()`                   | Wallets | Client | Bearer Token  | `POST /wallet/recover`         |
-| `wallets.smart()`                     | Wallets | Client | Bearer Token  | `POST /wallet/smart`           |
-| `wallets.revoke(userSub)`             | Wallets | Server | API Key       | `POST /wallet/revoke`          |
-| `sbt.mint(userSub)`                   | SBT     | Server | API Key       | `POST /sbt/mint`               |
-| `sbt.revoke(userSub)`                 | SBT     | Server | API Key       | `POST /sbt/revoke`             |
-| `sbt.getMySbt()`                      | SBT     | Client | Bearer Token  | `GET /sbt/me`                  |
-| `sbt.getSbtBySub(userSub)`            | SBT     | Server | API Key       | `GET /sbt/user?userSub=`       |
-| `sbt.update(updates)`                 | SBT     | Server | API Key       | `PATCH /sbt/update`            |
-| `sbt.getPublicMetadata(tokenId)`      | SBT     | Public | None          | `GET /sbt/token/:tokenId`      |
+| Function                              | Module  | Mode   | Auth Required | Backend Route               |
+| ------------------------------------- | ------- | ------ | ------------- | --------------------------- |
+| `wallets.get()`                       | Wallets | Client | Bearer Token  | `GET /wallet/`              |
+| `wallets.getBySub(userSub)`           | Wallets | Server | API Key       | `GET /wallet/user?userSub=` |
+| `wallets.create({ withSmartWallet })` | Wallets | Client | Bearer Token  | `POST /wallet/create`       |
+| `wallets.recover()`                   | Wallets | Client | Bearer Token  | `POST /wallet/recover`      |
+| `wallets.smart()`                     | Wallets | Client | Bearer Token  | `POST /wallet/smart`        |
+| `wallets.revoke(userSub)`             | Wallets | Server | API Key       | `POST /wallet/revoke`       |
+| `sbt.mint(userSub)`                   | SBT     | Server | API Key       | `POST /sbt/mint`            |
+| `sbt.revoke(userSub)`                 | SBT     | Server | API Key       | `POST /sbt/revoke`          |
+| `sbt.getMySbt()`                      | SBT     | Client | Bearer Token  | `GET /sbt/me`               |
+| `sbt.getSbtBySub(userSub)`            | SBT     | Server | API Key       | `GET /sbt/user?userSub=`    |
+| `sbt.update(updates)`                 | SBT     | Server | API Key       | `PATCH /sbt/update`         |
+| `sbt.getPublicMetadata(tokenId)`      | SBT     | Public | None          | `GET /sbt/token/:tokenId`   |
 
 ---
 
