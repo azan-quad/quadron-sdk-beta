@@ -12,7 +12,7 @@ export interface Quad {
         getBySub: typeof wallet.getWalletBySub;
         create: typeof wallet.createWallet;
         recover: typeof wallet.recoverWallet;
-        smart: typeof wallet.createSmartWalletForExisting;
+        createSmartWallet: typeof wallet.createSmartWalletForExisting;
         revoke: typeof wallet.revokeWallet;
     };
     sbt: {
@@ -20,7 +20,7 @@ export interface Quad {
         revoke: typeof sbt.revokeSbt;
         getMySbt: typeof sbt.getMySbt;
         getSbtBySub: typeof sbt.getSbtBySub;
-        update: typeof sbt.updateSbtMetadata;
+        updateMetadata: typeof sbt.updateSbtMetadata;
         getPublicMetadata: typeof sbt.getPublicSbtMetadata;
     };
 }

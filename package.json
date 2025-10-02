@@ -1,6 +1,6 @@
 {
   "name": "quadron-sdk-beta",
-  "version": "1.1.4",
+  "version": "1.1.10",
   "description": "Quadron SDK for interacting with backend services",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

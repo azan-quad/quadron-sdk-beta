@@ -27,7 +27,7 @@ export function initSDK(config: QuadronSDKConfig): Quad {
       getBySub: wallet.getWalletBySub,
       create: wallet.createWallet,
       recover: wallet.recoverWallet,
-      smart: wallet.createSmartWalletForExisting,
+      createSmartWallet: wallet.createSmartWalletForExisting,
       revoke: wallet.revokeWallet,
     },
     sbt: {
@@ -35,7 +35,7 @@ export function initSDK(config: QuadronSDKConfig): Quad {
       revoke: sbt.revokeSbt,
       getMySbt: sbt.getMySbt,
       getSbtBySub: sbt.getSbtBySub,
-      update: sbt.updateSbtMetadata,
+      updateMetadata: sbt.updateSbtMetadata,
       getPublicMetadata: sbt.getPublicSbtMetadata,
     },
   };

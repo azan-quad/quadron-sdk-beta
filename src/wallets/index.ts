@@ -2,88 +2,160 @@ import { getApiClient } from "../apiClient";
 import {
   GetWalletBySubReq,
   CreateSmartWalletForExistingRes,
-  CreateWalletAndMintSbtReq,
-  CreateWalletAndMintSbtRes,
   CreateWalletReq,
   CreateWalletRes,
   GetWalletRes,
   RecoverWalletRes,
   RevokeWalletReq,
   RevokeWalletRes,
-  MintSbtReq,
-  MintSbtRes,
 } from "../interfaces";
 
-// GET /wallet/
-async function getWallet(): Promise<GetWalletRes | null> {
+// wallet.get
+async function getWallet(): Promise<GetWalletRes> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.get("/wallet/");
-    return res.data;
-  } catch (error) {
-    console.error("Error in getWallet:", error);
-    return null;
+    return res.data.data;
+  } catch (error: any) {
+    const errorCode = error.response?.data?.code;
+    const errorMessage = error.response?.data?.message;
+
+    if (errorCode === "MISSING_USER_SUB") {
+      throw new Error("User authentication required");
+    }
+    if (errorCode === "WALLET_NOT_FOUND") {
+      throw new Error("Wallet not found for this user");
+    }
+    if (errorCode === "WALLET_RETRIEVAL_FAILED") {
+      throw new Error("Failed to retrieve wallet information");
+    }
+    console.error("Error in getWallet:", errorMessage || error);
+    throw error;
   }
 }
-
-async function getWalletBySub(arg: GetWalletBySubReq): Promise<GetWalletRes | null> {
+// wallet.getBySub
+async function getWalletBySub(arg: GetWalletBySubReq): Promise<GetWalletRes> {
   try {
     const apiClient = getApiClient();
-    const res = await apiClient.get("/wallet/getbysub", {
-      params: arg,
-    });
-    return res.data;
-  } catch (error) {
-    console.error("Error in getWalletBySub:", error);
-    return null;
+    const res = await apiClient.post("/wallet/getbysub", arg);
+    return res.data.data;
+  } catch (error: any) {
+    const errorCode = error.response?.data?.code;
+    const errorMessage = error.response?.data?.message;
+
+    if (errorCode === "MISSING_REQUIRED_FIELD") {
+      throw new Error("userSub is required in request body");
+    }
+    if (errorCode === "WALLET_NOT_FOUND") {
+      throw new Error("Wallet not found for this user");
+    }
+    if (errorCode === "WALLET_RETRIEVAL_FAILED") {
+      throw new Error("Failed to retrieve wallet information");
+    }
+    console.error("Error in getWalletBySub:", errorMessage || error);
+    throw error;
   }
 }
 
-// POST /wallet/create
-async function createWallet(arg: CreateWalletReq): Promise<CreateWalletRes | null> {
+// wallet.create
+async function createWallet(arg: CreateWalletReq): Promise<CreateWalletRes> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.post("/wallet/create", arg);
-    return res.data;
-  } catch (error) {
-    console.error("Error in createWallet:", error);
-    return null;
+    return res.data.data;
+  } catch (error: any) {
+    const errorCode = error.response?.data?.code;
+    const errorMessage = error.response?.data?.message;
+
+    if (errorCode === "MISSING_USER_SUB") {
+      throw new Error("User authentication required");
+    }
+    if (errorCode === "WALLET_ALREADY_EXISTS") {
+      throw new Error("Wallet already exists for this user");
+    }
+    if (errorCode === "WALLET_CREATION_FAILED") {
+      throw new Error("Failed to create wallet");
+    }
+    console.error("Error in createWallet:", errorMessage || error);
+    throw error;
   }
 }
 
-// POST /wallet/recover
-async function recoverWallet(): Promise<RecoverWalletRes | null> {
+// wallet.recover
+async function recoverWallet(): Promise<RecoverWalletRes> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.post("/wallet/recover");
-    return res.data;
-  } catch (error) {
-    console.error("Error in recoverWallet:", error);
-    return null;
+    return res.data.data;
+  } catch (error: any) {
+    const errorCode = error.response?.data?.code;
+    const errorMessage = error.response?.data?.message;
+
+    if (errorCode === "MISSING_USER_SUB") {
+      throw new Error("User authentication required");
+    }
+    if (errorCode === "WALLET_NOT_FOUND") {
+      throw new Error("Wallet not found for this user");
+    }
+    if (errorCode === "WALLET_RECOVERY_FAILED") {
+      throw new Error("Failed to recover wallet");
+    }
+    console.error("Error in recoverWallet:", errorMessage || error);
+    throw error;
   }
 }
 
-// POST /wallet/smart
-async function createSmartWalletForExisting(): Promise<CreateSmartWalletForExistingRes | null> {
+// wallet.smart
+async function createSmartWalletForExisting(): Promise<CreateSmartWalletForExistingRes> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.post("/wallet/smart");
-    return res.data;
-  } catch (error) {
-    console.error("Error in createSmartWalletForExisting:", error);
-    return null;
+    return res.data.data;
+  } catch (error: any) {
+    const errorCode = error.response?.data?.code;
+    const errorMessage = error.response?.data?.message;
+
+    if (errorCode === "MISSING_USER_SUB") {
+      throw new Error("User authentication required");
+    }
+    if (errorCode === "BASE_WALLET_NOT_FOUND") {
+      throw new Error("Base wallet not found for smart wallet creation");
+    }
+    if (errorCode === "SMART_WALLET_ALREADY_EXISTS") {
+      throw new Error("Smart wallet already deployed for this user");
+    }
+    if (errorCode === "SMART_WALLET_CREATION_FAILED") {
+      throw new Error("Failed to create smart wallet");
+    }
+    console.error("Error in createSmartWalletForExisting:", errorMessage || error);
+    throw error;
   }
 }
 
-// POST /wallet/revoke
-async function revokeWallet(arg: RevokeWalletReq): Promise<RevokeWalletRes | null> {
+// wallet.revoke
+async function revokeWallet(arg: RevokeWalletReq): Promise<RevokeWalletRes> {
   try {
     const apiClient = getApiClient();
     const res = await apiClient.post("/wallet/revoke", arg);
-    return res.data;
-  } catch (error) {
-    console.error("Error in revokeWallet:", error);
-    return null;
+    return res.data.data;
+  } catch (error: any) {
+    const errorCode = error.response?.data?.code;
+    const errorMessage = error.response?.data?.message;
+
+    if (errorCode === "MISSING_REQUIRED_FIELD") {
+      throw new Error("userSub is required in request body");
+    }
+    if (errorCode === "WALLET_NOT_FOUND") {
+      throw new Error("Wallet not found for this user");
+    }
+    if (errorCode === "WALLET_ALREADY_REVOKED") {
+      throw new Error("Wallet is already revoked");
+    }
+    if (errorCode === "WALLET_REVOCATION_FAILED") {
+      throw new Error("Failed to revoke wallet");
+    }
+    console.error("Error in revokeWallet:", errorMessage || error);
+    throw error;
   }
 }
 
