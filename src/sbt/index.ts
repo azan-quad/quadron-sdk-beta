@@ -33,7 +33,7 @@ async function mintSbt(arg: MintSbtReq): Promise<MintSbtRes> {
     }
     if (errorCode === "INTERNAL_SERVER_ERROR" && error.response?.data?.data?.tokenId) {
       // Minted on-chain but DB save failed
-      throw new Error("Minted on-chain but failed to save in DB. Please contact support.");
+      throw new Error("Internal server error");
     }
     console.error("Error in mintSbt:", errorMessage || error);
     throw error;

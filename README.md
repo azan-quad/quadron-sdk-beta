@@ -212,18 +212,17 @@ await quadronServer.sbt.getSbtBySub("user-123");
 
 ### SBT Errors
 
-| Error Message                                                       | Cause                                     |
-| ------------------------------------------------------------------- | ----------------------------------------- |
-| `userSub is required`                                               | Missing userSub parameter                 |
-| `User already owns an active SBT`                                   | Attempting to mint duplicate SBT          |
-| `Wallet not found for this user`                                    | No wallet exists for user                 |
-| `Cannot mint SBT for revoked wallet`                                | Attempting to mint SBT for revoked wallet |
-| `Minted on-chain but failed to save in DB. Please contact support.` | On-chain success but DB failure           |
-| `No SBT found for this user`                                        | No SBT exists for user                    |
-| `SBT is already revoked`                                            | Attempting to revoke already revoked SBT  |
-| `userSub and updates object are required`                           | Missing required parameters for update    |
-| `No valid identity fields provided for update`                      | Invalid update data                       |
-| `SBT not found for update`                                          | No SBT exists to update                   |
-| `SBT metadata not found`                                            | SBT metadata doesn't exist                |
+| Error Message                                  | Cause                                     |
+| ---------------------------------------------- | ----------------------------------------- |
+| `userSub is required`                          | Missing userSub parameter                 |
+| `User already owns an active SBT`              | Attempting to mint duplicate SBT          |
+| `Wallet not found for this user`               | No wallet exists for user                 |
+| `Cannot mint SBT for revoked wallet`           | Attempting to mint SBT for revoked wallet |
+| `No SBT found for this user`                   | No SBT exists for user                    |
+| `SBT is already revoked`                       | Attempting to revoke already revoked SBT  |
+| `userSub and updates object are required`      | Missing required parameters for update    |
+| `No valid identity fields provided for update` | Invalid update data                       |
+| `SBT not found for update`                     | No SBT exists to update                   |
+| `SBT metadata not found`                       | SBT metadata doesn't exist                |
 
 Always handle null/error responses and refresh expired tokens using `updateAccessToken(newToken)` in client mode.
